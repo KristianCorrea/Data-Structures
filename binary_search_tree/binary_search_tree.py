@@ -17,20 +17,55 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        # take the current value of our node (self.value)
+        # compare to the new value we want to insert
+        if value < self.value:
+            #if self.left is empty set value of the node to incoming value.
+            if self.left is None:
+                self.left = BSTNode(value)
+            #else self.left is taken then make that left node handle insert with value
+            else:
+                self.left.insert(value)
+
+        if value >= self.value:
+            if self.right is None:
+                self.right = BSTNode(value)
+            else:
+                self.right.insert(value)
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        #compare target to current value
+        if self.value == target:
+            return True
+        found = False
+        if self.value >= target:
+            if self.left is None:
+                return False
+            found = self.left.contains(target)
+        
+        if self.value < target:
+            if self.right is None:
+                return False
+            found = self.right.contains(target)
+
+        return found
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        if self.right is None:
+            return self.value
+        max_val = self.right.get_max()
+        return max_val
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        pass
+        fn(self.value)
+        if self.left:
+            self.left.for_each(fn)
+        if self.right:
+            self.right.for_each(fn)
 
     # Part 2 -----------------------
 
@@ -60,26 +95,26 @@ class BSTNode:
     def post_order_dft(self):
         pass
 
-"""
-This code is necessary for testing the `print` methods
-"""
-bst = BinarySearchTree(1)
+# """
+# This code is necessary for testing the `print` methods
+# """
+# bst = BinarySearchTree(1)
 
-bst.insert(8)
-bst.insert(5)
-bst.insert(7)
-bst.insert(6)
-bst.insert(3)
-bst.insert(4)
-bst.insert(2)
+# bst.insert(8)
+# bst.insert(5)
+# bst.insert(7)
+# bst.insert(6)
+# bst.insert(3)
+# bst.insert(4)
+# bst.insert(2)
 
-bst.bft_print()
-bst.dft_print()
+# bst.bft_print()
+# bst.dft_print()
 
-print("elegant methods")
-print("pre order")
-bst.pre_order_dft()
-print("in order")
-bst.in_order_dft()
-print("post order")
-bst.post_order_dft()  
+# print("elegant methods")
+# print("pre order")
+# bst.pre_order_dft()
+# print("in order")
+# bst.in_order_dft()
+# print("post order")
+# bst.post_order_dft()  
